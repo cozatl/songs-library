@@ -24,82 +24,82 @@ class Header extends Component {
     render() {
         return (
             <main>
-                <article class = 'main__library'>
-                    <div class="library__search">
-                        <button class="library__btn__search"><img src={images['search.svg']} alt="search"/></button>
-                        <input class="library__input__search" type="text"/>
-                        <button class="library__btn__recent">Recent&nbsp;<img src={images['menu.svg']} alt="menu"/></button>
+                <article className = 'main__library'>
+                    <div className="library__search">
+                        <button className="library__btn__search"><img src={images['search.svg']} alt="search"/></button>
+                        <input className="library__input__search" type="text"/>
+                        <button className="library__btn__recent">Recent&nbsp;<img src={images['menu.svg']} alt="menu"/></button>
                     </div>
-                    <div class="library__list">
-                        <button class="library__btn__play">
+                    <div className="library__list">
+                        <button className="library__btn__play">
                             <img src={images['liked songs.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Liked Songs</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['angeles azules.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Los Angeles Azules</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['imagine dragons.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Imagine Dragons</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['guns n roses.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Guns N' Roses</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['metallica.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Metallica</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['def Leppard.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Def Lepard</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['bon jovi.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Bon Jovi</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
-                        <button class="library__btn__play">
+                        <button className="library__btn__play">
                             <img src={images['maroon 5.png']} alt=""/>
-                            <div class="library__btn__info">
+                            <div className="library__btn__info">
                                 <p>Maroon 5</p>
                                 <p>Artist</p>
                             </div>                    
                         </button>
                     </div>
                 </article>
-                <article id='mainArtist' class = 'main__artists'>
-                    <section class="artists__title">
+                <article id='mainArtist' className = 'main__artists'>
+                    <section className="artists__title">
                         <div>
-                            <span class="artists__name">Artist Name</span>
+                            <span className="artists__name">Artist Name</span>
                         </div>
                         {/* <div class="artists__bar">
                             <img src="./img/coldplay_icon.jpg" alt=""/>
                         </div> */}
-                        <div class="artists__list">
+                        <div className="artists__list">
                             <h2>Song List</h2>
-                            <article class="artists__songs">
+                            <article className="artists__songs">
                                 <div>
                                     <span>
                                         <p>1</p>
@@ -144,7 +144,7 @@ class Header extends Component {
                         </div>                        
                     </section>
                 </article>
-                <article class = 'main__playing'>
+                <article className = 'main__playing'>
                     <h1>{this.props.appName}</h1>
                     {/* <button onClick={this.handleButtonClick}>Click Me</button>
                     <p>{this.state.welcomeMessage}</p>
