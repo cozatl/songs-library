@@ -1,44 +1,28 @@
-import React from "react";
-//import search from '../../img/search.svg' if folder is 2 folders up current folder
+import React, { Fragment } from "react";
 
-// const Song = ({id1, addBtn, title, image, artist, duration}) => {
-//     return (
+const Song = (songs) => {
+    const handleAdd = () => {
+        try {
+            songs.onAddSong(songs.song);
+        } catch (error) {
+            console.log(error);
+        }
         
-//         <>
-//             {/* <p>{id1}</p> */}
-            
-//             <div className="artist__description">
-//                 <img src={image} alt=""/>
-//                 <span>
-//                     <a href="#mainArtist">{artist}</a>                               
-//                     <a href="#mainArtist">{title}</a>
-//                 </span>            
-//             </div>
-//             <button id="addSong" >
-//                 <img src={addBtn} alt=""/>
-//             </button>
-//             <p>{duration}</p>                   
-//         </>
-// )}
-const Song = (song) => {
-    // const handleAdd = () => {
-    //     onAddSong(song);console.log(song)
-    // }
-    return (        
-        <>
-            <p></p>
-            <div className="artist__description" key={song.id1}>
-                <img src={song.image} alt=""/>
+    }
+    return (
+        <Fragment key={songs.song.id1}>
+            <div className="artist__description">
+                <img src={songs.song.image} alt=""/>
                 <span>
-                    <a href="#mainArtist">{song.artist}</a>                               
-                    <a href="#mainArtist">{song.title}</a>
+                    <a href="#mainArtist">{songs.song.artist}</a>                               
+                    <a href="#mainArtist">{songs.song.title}</a>
                 </span>            
             </div>
-            <button id="addSong">
-                <img src={song.addBtn} alt=""/>
+            <button id="addSong" onClick={handleAdd}>
+                <img src={songs.addBtn} alt=""/>
             </button>
-            <p>{song.duration}</p>                   
-        </>
+            <p>{songs.song.duration}</p>                   
+        </Fragment>
 )}
 
 export default Song;
