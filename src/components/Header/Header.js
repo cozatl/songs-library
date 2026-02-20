@@ -1,9 +1,14 @@
-import React, {useEffect} from "react";
+import './styles.css';
+import React, {useEffect, useRef} from "react";
 
 const Header = ({appName}) => {
+
+    const isFirstRender = useRef(true);
     //Simulating componentDidMount
     useEffect(() => {
-        console.log('Web Page loaded correctly.');
+        !isFirstRender.current ? 
+        console.log('Web Page loaded correctly.') : isFirstRender.current = false;
+        
     }, []); // The empty array ensures the effect runs only on mount
     return (
         <header>

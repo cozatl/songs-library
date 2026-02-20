@@ -1,15 +1,15 @@
 import React from "react";
 //import search from '../../img/search.svg' if folder is 2 folders up current folder
 
-const Songs = ({appName, id, title, image, artist, duration}) => {
+const Songs = ({song}) => {
     return (
         <>
             <div>
-                <span key={id}>
-                    <img src={image} alt=""/>
-                    <a href="#mainLibrary">{title}</a>
-                    <a href="#mainLibrary">{artist}</a>
-                    <p>{duration}</p>
+                <span>
+                    <img src={song.image} alt=""/>
+                    <a href="#mainLibrary">{song.title}</a>
+                    <a href="#mainLibrary">{song.artist}</a>
+                    <p>{song.duration}</p>
                 </span>
             </div>
         </>
