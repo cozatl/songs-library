@@ -37,7 +37,7 @@ function App() {
   }
   return (
     <>
-      <Header className="App-header" appName='Songs artists'/>
+      <Header className="App-header" appName='Artist Songs'/>
         <main className="App">
           <article className="main__artists">
             <div className="artists__list">
