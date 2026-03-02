@@ -4,10 +4,15 @@ import SearchResults from './components/SearchResults/index.js';
 import Library from './components/Library/index.js';
 import Details from './components/Details/index.js';
 import { useState, useEffect,useRef} from 'react';
+import { Route, Routes, Navigate } from "react-router-dom";
+import useFetchAlbum from './components/Hooks/useFetchAlbum.ts';
 
 function App() {
-  
   const[library, setLibrary] = useState([]);
+  const [artist, setArtist] = useState('');
+
+  const {album, loadingAlbums, errorAlbums} = useFetchAlbum(artist);
+    // console.log(album);
   
   const isFirstRender = useRef(true);
   
@@ -22,8 +27,8 @@ function App() {
       if (library.length > 0) {
       Object.keys(library).forEach(key => {
         const value = library[key];
-        // console.log(key + ' is ' + value['id1']);
-        if (value['id1'] === song['id1']) {
+        // console.log(key + ' is ' + value['idTrack']);
+        if (value['idTrack'] === song['idTrack']) {
           console.log('Song was previously added!');
           flag = true;
           return;
@@ -35,26 +40,23 @@ function App() {
             console.log(error);
         }
   }
+  
   return (
     <>
       <Header className="App-header" appName='Artist Songs'/>
         <main className="App">
-          <article className="main__artists">
-            <div className="artists__list">
-              <SearchResults onAddSong={addSong} />
-            </div>
-          </article>
-          <article id='mainLibrary' className = 'main__library'>
-            <section className="library__title">
-              <h2>Library List</h2>
-              <div className="library__list">
-                <article className="library__songs">
+          <Routes>
+            {/* Redirects to home from the beginning */}
+            <Route path= '/' element={<Navigate to = '/home' />} />
+            <Route path='/home' element={
+                <>
+                  <SearchResults onAddSong={addSong} album={album} loadingAlbums={loadingAlbums} errorAlbums={errorAlbums} setArtist={setArtist} />
                   <Library songs={library} />
-                </article>
-              </div>
-            </section>
-          </article>
-          <Details/>
+                </>
+              } 
+            />
+            <Route path='song/:id' element={<Details/>} />
+          </Routes>          
         </main>
     </>
   );
