@@ -1,4 +1,5 @@
 import React from "react";
+import convertInt2Time from "../utils/convertInt2Time.ts";
 //import search from '../../img/search.svg' if folder is 2 folders up current folder
 
 const Songs = ({song}) => {
@@ -6,10 +7,10 @@ const Songs = ({song}) => {
         <>
             <div>
                 <span>
-                    <img src={song.image} alt=""/>
-                    <a href="#mainLibrary">{song.title}</a>
-                    <a href="#mainLibrary">{song.artist}</a>
-                    <p>{song.duration}</p>
+                    <img src={song.albumImage} alt=""/>
+                    <a href="#mainLibrary">{song.strTrack}</a>
+                    <a href="#mainLibrary">{song.strArtist}</a>
+                    <p>{convertInt2Time(song.intDuration)}</p>
                 </span>
             </div>
         </>

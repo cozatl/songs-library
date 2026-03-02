@@ -1,24 +1,23 @@
+import './styles.css';
 import React from "react";
-
-function importAll(r) {
-    let imgs = {};
-    r.keys().forEach((key) => {
-        const fileName = key.replace('./','');
-        imgs[fileName] = r(key);
-    });
-    return imgs;
-}
-
-const images = importAll(require.context('../../assets/img',false,/\.(png|jpe?g|svg)$/));
+import { Link, useLocation } from "react-router-dom";
 
 const Details = () => { 
+    const location = useLocation();
+    const song = location.state?.song;
+    console.log(song);
     return (
         <>
-            <article className = 'main__playing'>
-                <h1>Some details</h1>
-                {/* <button onClick={this.handleButtonClick}>Click Me</button>
-                <p>{this.state.welcomeMessage}</p>
-                <p>{this.state.isloggedIn ? 'Welcome, user' : 'You are not connected'}</p> */}
+            <article className = 'main__details'>
+                <Link className='links' to='/home'>Return home</Link>
+                <h1>Track details</h1>
+                <div className='details'>
+                    <img src={song.albumImage} alt=""/>
+                    <p>id: {song.idTrack}</p>
+                    <p>Group: {song.strArtist}</p>
+                    <p>Album: {song.strAlbum}</p>
+                    <p>Title: {song.strTrack}</p>
+                </div>
             </article>
         </>
     )

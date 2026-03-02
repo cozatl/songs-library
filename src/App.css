@@ -148,13 +148,13 @@ main {
   display: grid;
   align-items: center;
   gap: 5px;
-  grid-template-columns: calc(25% - 5px) calc(60% - 5px) calc(15% - 5px);
+  grid-template-columns: calc(40% - 5px) calc(60% - 5px);/*calc(15% - 5px); */
 }
 main > article {
   height: calc(100dvh - 120px);
 }
 
-main .main__playing {
+main .main__details {
   overflow-y: auto;
   border-radius: 8px;
   background-color: rgb(27, 27, 27);

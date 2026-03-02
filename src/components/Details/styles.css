@@ -1,0 +1,17 @@
+
+.main__details .details{
+    color: rgb(153, 153, 231);
+    font-size: clamp(1rem, 1.7vw, 1.3rem);
+    font-weight: 600;
+    padding-top: 20px;
+    img {
+        width: 50%;
+    }    
+}
+.links{
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin: 20px;
+    }

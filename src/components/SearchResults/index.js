@@ -1,6 +1,8 @@
-import React,{useEffect, useState} from "react";
 import Song from "../Songs/Song.js";
 import './styles.css';
+// import useFetchAlbum from "../Hooks/useFetchAlbum.ts";
+import useFetchSongs from "../Hooks/useFetchSongs.ts";
+import { useState } from "react";
 
 function importAll(r) {
     let imgs = {};
@@ -13,50 +15,102 @@ function importAll(r) {
 
 const images = importAll(require.context('../../assets/img',false,/\.(png|jpe?g|svg)$/));
 
-const SearchResults = ({appName, onAddSong}) => {
-    const [songs, setSongs] = useState([]);
+const SearchResults = ({appName, onAddSong, album, loadingAlbums, errorAlbums, setArtist}) => {
+    const [inputValue, setInputValue] = useState('');
 
-    useEffect(() => {
-        const fetchSongs = async () => {
-            const response = [
-            {id1: 1, image: images['Coldplaybackground.jpg'], artist:'Cold Play', title:'Yellow', duration:'4:26'},
-            {id1: 2, image: images['Coldplaybackground.jpg'], artist:'Cold Play', title:'Vival La Vida', duration:'3:56'},
-            {id1: 3, image: images['Coldplaybackground.jpg'], artist:'Cold Play', title:'Something Just Like This', duration:'4:45'},
-            {id1: 4, image: images['Coldplaybackground.jpg'], artist:'Cold Play', title:'The Scientist', duration:'4:12'},
-            {id1: 5, image: images['Coldplaybackground.jpg'], artist:'Cold Play', title:'A Sky Full of Stars', duration:'5:05'},
-            {id1: 6, image: images['bon jovi.png'], artist:'Bon Jovi', title:'Livin on a prayer', duration:'5:35'},
-            {id1: 7, image: images['angeles azules.png'], artist:'Los Angeles Azules', title:'Nunca es suficiente', duration:'4:55'},
-            {id1: 8, image: images['bon jovi.png'], artist:'Scorpions', title:'When you came into my life', duration:'4:23'}
-            ];
+    //Inactive to get data from App.js and mantain state and songs from API
+    // const [artist, setArtist] = useState('');
+    // const {album, loadingAlbums, errorAlbums} = useFetchAlbum(artist);
+    // // console.log(album);
 
-            setSongs(response);
-        };
-        fetchSongs();
-    }, [])
-    
-return (
-    <>
-        <div className="artists__search">
-            <button className="artists__btn__search"><img src={images['search.svg']} alt="search"/></button>
-            <input className="artists__input__search" type="text"/>
-        </div>
+    const handleSearch = (e) => {
+        e.preventDefault();
+        // console.log('here');
+        setArtist(inputValue);
+    }
+
+    const {songs, loadingSongs, errorSongs} = useFetchSongs(album);
+    // console.log(songs);
+
+    const renderSongs = () => (
+        <article className="main__artists">
+            <div className="artists__list">
+                <div className="artists__search">
+                    <form onSubmit={handleSearch}>
+                        <label>Search Artist: </label>
+                        <input
+                            className="artists__input__search"
+                            type="text"
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                        />
+                         <button type="submit"
+                            className="artists__btn__search">
+                            <img src={images['search.svg']} alt="search"/>
+                            
+                        </button>
+                    </form>
+                </div>            
+                {
+                    songs.map(song => {
+                        return (
+                            <article id='mainArtist' className = 'main__artists' key = {song.idTrack}>
+                                <section className="artists__title">
+                                    <Song
+                                        addBtn = {images['plus.svg']}
+                                        onAddSong = {onAddSong}
+                                        // onDetails = {onDetails}
+                                        song = {song}
+                                    />
+                                </section>
+                            </article>
+                        )
+                    })
+                }
+            </div>
+        </article>
+    )
+    const renderContent = () => {//console.log(artist.length);
+        //It can be applied, either with new functions or  direct code if it is few content
+        // if (artist.length > 0){console.log('test',loadingAlbums)
+            if (loadingAlbums) return <p>Loading Albums to get songs...</p>
+        // }      
+        // if (songs != null){
+            if (loadingSongs) return <p>Loading Songs...</p>
+        // }         
+        if (errorAlbums) return <p>Error while loading albums</p>
+        // if (loadingSongs && artist != null) return <p>Loading Songs...</p>
+        if (errorSongs) 
         {
-            songs.map(song => {
-                return (
-                    <article id='mainArtist' className = 'main__artists' key = {song.id1}>
-                        <section className="artists__title">
-                            <Song
-                                addBtn = {images['plus.svg']}
-                                onAddSong = {onAddSong}
-                                song = {song}
+        return (
+                <>
+                <article className="main__artists">
+                    <div className="artists__list">
+                        <div className="artists__search">
+                            <input 
+                                className="artists__input__search"
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
                             />
-                        </section>
-                    </article>
-                )
-            })
+                            <button onClick={handleSearch}
+                                className="artists__btn__search">
+                                <img src={images['search.svg']} alt="search"/>
+                            </button>
+                        </div>
+                    </div>
+                    <p>No parameters given or group didn't found</p>
+                </article>                
+                </>)
         }
-    </>
-)
+        return renderSongs();
+    }
+    return (
+        <>
+            {
+                renderContent()
+            }
+        </>
+    )
 };
-
 export default SearchResults;
