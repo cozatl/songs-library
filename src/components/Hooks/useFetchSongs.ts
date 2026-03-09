@@ -34,10 +34,13 @@ const useFetchSongs = (albums: Album[]) => {
         // }
             
         const fetchSong = async () => {
+            setSongState(prev => ({
+                ...prev,
+                loadingSongs:false,
+                errorSongs:null}));
             try {
-                //console.log(artistData);
                 const limitedAlbums = albums.slice(0,10);
-                //console.log(limitedAlbums);
+                // console.log('tets',limitedAlbums);
                 const requests = limitedAlbums.map(album =>
                     axios.get(`https://www.theaudiodb.com/api/v1/json/123/track.php?m=${album.idAlbum}`)
                 );
