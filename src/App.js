@@ -1,11 +1,15 @@
 import './App.css';
-import Header from "./components/Header/Header.js";
-import SearchResults from './components/SearchResults/index.js';
-import Library from './components/Library/index.js';
-import Details from './components/Details/index.js';
+import Header from "./components/Header/index.tsx";
+import SearchResults from './components/SearchResults/index.tsx';
+import Library from './components/Library/index.tsx';
+import Details from './components/Details/index.tsx';
 import { useState, useEffect,useRef} from 'react';
 import { Route, Routes, Navigate } from "react-router-dom";
 import useFetchAlbum from './components/Hooks/useFetchAlbum.ts';
+import Theme from "./Theme/index.ts";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "./Theme/GlobalStyles.js";
+import { StyledMain } from './styles.ts';
 
 function App() {
   const[library, setLibrary] = useState([]);
@@ -43,8 +47,10 @@ function App() {
   
   return (
     <>
-      <Header className="App-header" appName='Artist Songs'/>
-        <main className="App">
+      <ThemeProvider theme={Theme}>
+        <GlobalStyle />
+        <Header className="App-header" appName='Artist Songs'/>
+        <StyledMain className="App">
           <Routes>
             {/* Redirects to home from the beginning */}
             <Route path= '/' element={<Navigate to = '/home' />} />
@@ -57,7 +63,8 @@ function App() {
             />
             <Route path='song/:id' element={<Details/>} />
           </Routes>          
-        </main>
+        </StyledMain>
+      </ThemeProvider>
     </>
   );
 }
