@@ -1,9 +1,9 @@
 // Definition of main DefaulTheme to be used in all the project and be recognized in all modules
 
 import 'styled-components';
-import theme from './components/Theme'
+import Theme from './Theme';
 
-type ThemeType = typeof theme;
+type ThemeType = typeof Theme;
 declare module 'styled-components' {
     export interface DefaultTheme extends ThemeType {}
 }
