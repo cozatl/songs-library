@@ -28,11 +28,18 @@ const StyledLibraryList = styled.div`
             width: 50%;
         }
         display: grid;
-        grid-template-columns: 0.5fr 2.5fr 2.5fr 0.5fr;
-        }
+            grid-template-columns: 0.5fr 2.5fr 2.5fr 0.5fr 35px;
+            }
         &:hover{
-        background-color: rgb(53, 47, 47);
-        cursor: pointer;
+            background-color: rgb(53, 47, 47);
+            cursor: pointer;
+        }
+        button {
+            background-color: transparent;
+            height: 35px;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
         }
     }
 `;
