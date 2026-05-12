@@ -1,16 +1,21 @@
 import React, { Fragment } from "react";
 import convertInt2Time from "../utils/convertInt2Time.ts";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addSong } from "../../redux/libraryActions.js"
 
 const Song = (songs) => {
+    const dispatch = useDispatch();                //ADDED TO DISPATCH SONG DIRECTLY HERE
+
     const handleAdd = () => {
         try {
-            songs.onAddSong(songs.song);
+            // songs.onAddSong(songs.song);        //NOT NEEDED FOR REDUX
+            dispatch(addSong(songs.song));
         } catch (error) {
             console.log(error);
-        }
-        
+        }        
     }
+    // console.log(useSelector(state => state));
     
     return (
         <Fragment key={songs.song.idTrack}>

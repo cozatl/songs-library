@@ -4,6 +4,7 @@ import useFetchSongs from "../Hooks/useFetchSongs.ts";
 import React, { useState } from "react";
 import { StyledArtistsList, StyledArtistsSearch, StyledArtistsTitle, StyledMainArtists } from "./styles.ts";
 
+
 declare const require: any;
 function importAll(r: any) {
     let imgs:Record<string,string> = {};
@@ -17,14 +18,15 @@ function importAll(r: any) {
 const images = importAll((require as any).context('../../assets/img',false,/\.(png|jpe?g|svg)$/));
 
 interface SearchResultProps {
-    onAddSong: (song:any) => void;
+    // onAddSong: (song:any) => void;
     album: any[];
     loadingAlbums: boolean;
     errorAlbums: string | null;
     setArtist: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchResults = ({onAddSong, album, loadingAlbums, errorAlbums, setArtist}: SearchResultProps) => {
+// const SearchResults = ({onAddSong, album, loadingAlbums, errorAlbums, setArtist}: SearchResultProps) => {
+const SearchResults = ({album, loadingAlbums, errorAlbums, setArtist}: SearchResultProps) => {
     const [inputValue, setInputValue] = useState('');
 
     //Inactive to get data from App.js and mantain state and songs from API
@@ -68,8 +70,7 @@ const SearchResults = ({onAddSong, album, loadingAlbums, errorAlbums, setArtist}
                                 <StyledArtistsTitle className="artists__title">
                                     <Song
                                         addBtn = {images['plus.svg']}
-                                        onAddSong = {onAddSong}
-                                        // onDetails = {onDetails}
+                                        // onAddSong = {onAddSong}        //NOT NEEDED FOR REDUX
                                         song = {song}
                                     />
                                 </StyledArtistsTitle>

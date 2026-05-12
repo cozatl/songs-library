@@ -45,7 +45,7 @@ const StyledArtistsTitle = styled.section`
         display: none;
     }
     button {
-        background-color: transparent;
+        background-color: transparent;        
     }
 `;
 
