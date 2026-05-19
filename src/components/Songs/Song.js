@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 import convertInt2Time from "../utils/convertInt2Time.ts";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addSong } from "../../redux/libraryActions.js"
+import { useDispatch } from "react-redux";
+import { addSong } from "../../redux/slices/librarySlice.ts";
+// import { addSong } from "../../redux/libraryActions.js"        //NOT NEEDED FOR REDUX TOOLKIT
 
 const Song = (songs) => {
     const dispatch = useDispatch();                //ADDED TO DISPATCH SONG DIRECTLY HERE
@@ -15,7 +16,6 @@ const Song = (songs) => {
             console.log(error);
         }        
     }
-    // console.log(useSelector(state => state));
     
     return (
         <Fragment key={songs.song.idTrack}>

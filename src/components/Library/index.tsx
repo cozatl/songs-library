@@ -26,7 +26,8 @@ import { RootState } from "../../redux/store.tsx";
 
 // const Library = ({songs}: SongsList) => {        //NOT NEEDED FOR REDUX
 const Library = () => {
-    const songs = useSelector((state:RootState) => state.songs.songs);
+    // const songs = useSelector((state:RootState) => state.songs.songs);  // NOT NEEDED FOR REDUX TOOLKIT
+    const songs = useSelector((state:RootState) => state.library.songs);
     return (
         <StyledMainLibrary id='mainLibrary'>
             <StyledLibraryList>

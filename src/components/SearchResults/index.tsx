@@ -1,8 +1,12 @@
 import Song from "../Songs/Song.js";
 import './styles.ts';
-import useFetchSongs from "../Hooks/useFetchSongs.ts";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyledArtistsList, StyledArtistsSearch, StyledArtistsTitle, StyledMainArtists } from "./styles.ts";
+import { AppDispatch, RootState } from "../../redux/store.ts";
+import { useDispatch, useSelector } from "react-redux";
+import { FAILED, LOADING, SUCCEEDED } from "../../redux/status.js";
+import { fetchAlbum } from "../../redux/slices/albumSlice.ts";
+import { fetchSongs } from "../../redux/slices/songSlice.ts";
 
 
 declare const require: any;
@@ -17,32 +21,33 @@ function importAll(r: any) {
 
 const images = importAll((require as any).context('../../assets/img',false,/\.(png|jpe?g|svg)$/));
 
-interface SearchResultProps {
-    // onAddSong: (song:any) => void;
-    album: any[];
-    loadingAlbums: boolean;
-    errorAlbums: string | null;
-    setArtist: React.Dispatch<React.SetStateAction<string>>;
-}
-
-// const SearchResults = ({onAddSong, album, loadingAlbums, errorAlbums, setArtist}: SearchResultProps) => {
-const SearchResults = ({album, loadingAlbums, errorAlbums, setArtist}: SearchResultProps) => {
+    const SearchResults = () => {
+    // Create dispatch to work with the store
+    const dispatch = useDispatch<AppDispatch>();
     const [inputValue, setInputValue] = useState('');
 
-    //Inactive to get data from App.js and mantain state and songs from API
-    // const [artist, setArtist] = useState('');
-    // const {album, loadingAlbums, errorAlbums} = useFetchAlbum(artist);
-    // // console.log(album);
+    // Define local variables from Slicers
+    const album = useSelector((state:RootState) => state.album.album);
+    const status = useSelector((state:RootState) => state.album.status);
+    
+    const songs = useSelector((state:RootState) => state.songs.songs);
+    const statusSongs = useSelector((state:RootState) => state.songs.status);    
 
+    // Control button to get albums from input form
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //  console.log('here');
-        setArtist(inputValue);
+        dispatch(fetchAlbum(inputValue));
     }
 
-    let {songs, loadingSongs, errorSongs} = useFetchSongs(album);
-    
-    // console.log(songs);
+    // UseEffect to get songs with the results from albums gathered
+    useEffect(() => {
+        const albums = Object.values(album).flat();
+        // console.log('status:',status);
+        //Executes it only when the component is idle and not all the time
+        if (status === SUCCEEDED && albums.length > 0) {
+            dispatch(fetchSongs(albums));
+        }
+    },[album, status, dispatch]);
 
     const renderSongs = () => (
         <StyledMainArtists>
@@ -62,7 +67,7 @@ const SearchResults = ({album, loadingAlbums, errorAlbums, setArtist}: SearchRes
                             
                         </button>
                     </form>
-                </StyledArtistsSearch>            
+                </StyledArtistsSearch>
                 {
                     songs.map(song => {
                         return (
@@ -70,7 +75,6 @@ const SearchResults = ({album, loadingAlbums, errorAlbums, setArtist}: SearchRes
                                 <StyledArtistsTitle className="artists__title">
                                     <Song
                                         addBtn = {images['plus.svg']}
-                                        // onAddSong = {onAddSong}        //NOT NEEDED FOR REDUX
                                         song = {song}
                                     />
                                 </StyledArtistsTitle>
@@ -78,36 +82,18 @@ const SearchResults = ({album, loadingAlbums, errorAlbums, setArtist}: SearchRes
                         )
                     })
                 }
+                {
+                    status === FAILED && <p>Error while loading albums or incorrect parameters were given.</p>
+                }
+                {
+                    statusSongs === FAILED && <p>Error while loading songs or no album was found.</p>
+                }
             </StyledArtistsList>
         </StyledMainArtists>
     )
-    const renderContent = () => {//console.log(artist.length);
-        //It can be applied, either with new functions or  direct code if it is few content
-        // if (artist.length > 0){console.log('test',loadingAlbums)
-        if (loadingAlbums) return <p style={{zIndex: 100}}>Loading Albums to get songs...</p>
-        if (errorAlbums) return <p>Error while loading albums</p>
-        if (loadingSongs) return <p style={{zIndex: 100}}>Loading Songs...</p>
-        if (errorSongs)
-        return (
-                <StyledMainArtists>
-                    <StyledArtistsList>
-                        <StyledArtistsSearch>
-                            <form onSubmit={handleSearch}>
-                                <label>Search Artist: </label>
-                                <input
-                                    type="text"
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                />
-                                <button type="submit">
-                                    <img src={images['search.svg']} alt="search"/>
-                                </button>
-                            </form>
-                        </StyledArtistsSearch>
-                    </StyledArtistsList>
-                    <p>No parameters given or group not found</p>
-                </StyledMainArtists>
-                )
+    const renderContent = () => {
+        if (status === LOADING) return <p style={{zIndex: 100}}>Loading Albums to get songs...</p>
+        if (statusSongs === LOADING) return <p style={{zIndex: 100}}>Loading Songs...</p>
         return renderSongs();
     }
     return (
