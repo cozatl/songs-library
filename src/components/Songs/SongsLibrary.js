@@ -1,7 +1,8 @@
 import React from "react";
 import convertInt2Time from "../utils/convertInt2Time.ts";
-import { removeSong } from '../../redux/libraryActions';
+// import { removeSong } from '../../redux/libraryActions';
 import { useDispatch } from "react-redux";
+import { removeSong } from "../../redux/slices/librarySlice.ts";
 
 const Songs = ({song}) => {
 
