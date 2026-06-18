@@ -19,7 +19,11 @@ function importAll(r: any) {
     return imgs;
 }
 
-const images = importAll((require as any).context('../../assets/img',false,/\.(png|jpe?g|svg)$/));
+// const images = importAll((require as any).context('../../assets/img',false,/\.(png|jpe?g|svg)$/)); //Required in production
+//Next lines required only for TESTING
+const images = typeof require.context === 'function'
+  ? importAll((require as any).context('../../assets/img',false,/\.(png|jpe?g|svg)$/))
+  : {};
 
     const SearchResults = () => {
     // Create dispatch to work with the store
@@ -35,7 +39,7 @@ const images = importAll((require as any).context('../../assets/img',false,/\.(p
 
     // Control button to get albums from input form
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault();//console.log('input',inputValue)
         dispatch(fetchAlbum(inputValue));
     }
 
@@ -69,7 +73,7 @@ const images = importAll((require as any).context('../../assets/img',false,/\.(p
                     </form>
                 </StyledArtistsSearch>
                 {
-                    songs.map(song => {
+                    songs.map(song => {console.log('test')
                         return (
                             <article id='mainArtist' key = {song.idTrack}>
                                 <StyledArtistsTitle className="artists__title">
