@@ -5,7 +5,7 @@ import { FAILED, IDLE, LOADING, SUCCEEDED } from "../status";
 export const fetchAlbum = createAsyncThunk('songs/fetchAlbum', async (artist:string) => {//console.log(`https://www.theaudiodb.com/api/v1/json/123/searchalbum.php?s=${artist}`)
     const response = await axios.get(`https://www.theaudiodb.com/api/v1/json/123/searchalbum.php?s=${artist}`); // Get data from API URL
     // return response.data.slice(0, 10)  ?? [];     // Return only 10 records from all the response
-    console.log('res',response.data.album);
+    
     return response.data ?? [];
     });
 

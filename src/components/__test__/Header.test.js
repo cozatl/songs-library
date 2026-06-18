@@ -9,7 +9,7 @@ describe('Header component', () => {
 
         render(<Header appName= {title} />);
 
-        const headerTitle = screen.getByText(`${title}`);
+        const headerTitle = screen.getByText(`${title}`); //Validate title is displayed
         expect(headerTitle).toBeInTheDocument();
     })
 })

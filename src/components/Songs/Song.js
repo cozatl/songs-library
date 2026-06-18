@@ -11,7 +11,7 @@ const Song = (songs) => {
     const handleAdd = () => {
         try {
             // songs.onAddSong(songs.song);        //NOT NEEDED FOR REDUX
-            dispatch(addSong(songs.song));
+            dispatch(addSong(songs.song));//console.log('songs',songs.song)
         } catch (error) {
             console.log(error);
         }        
@@ -30,7 +30,9 @@ const Song = (songs) => {
                     </Link>
                 </span>            
             </div>
-            <button id="addSong" onClick={handleAdd}>
+            <button id="addSong"
+                    aria-label="add"
+                    onClick={handleAdd}>
                 <img src={songs.addBtn} alt=""/>
             </button>
             <p>{convertInt2Time(songs.song.intDuration)}</p>

@@ -16,7 +16,8 @@ const Songs = ({song}) => {
                     <a href="#mainLibrary">{song.strTrack}</a>
                     <a href="#mainLibrary">{song.strArtist}</a>
                     <p>{convertInt2Time(song.intDuration)}</p>
-                    <button id="removeSong" 
+                    <button id="removeSong"
+                            aria-label="remove"
                             onClick={() => 
                                 dispatch(removeSong(song.idTrack))
                             }>-

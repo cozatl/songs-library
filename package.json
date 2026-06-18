@@ -12,7 +12,7 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-redux": "^9.2.0",
-    "react-router-dom": "^7.17.0",
+    "react-router-dom": "^6.30.2",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
     "sass": "^1.97.3",
@@ -49,9 +49,9 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.27",
     "jest": "^27.5.1",
+    "jest-fetch-mock": "^3.0.3",
     "postcss": "^8.5.8",
     "tailwindcss": "^3.4.19"
   }

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 export interface Song {
     idTrack: number;
@@ -29,7 +29,9 @@ const librarySlice = createSlice({
                 song => song.idTrack === action.payload.idTrack
             );
             if(!exists){
-                state.songs.push(action.payload);
+                // console.log('state 1',state.songs)
+                state.songs.push(action.payload);//console.log('addSong',action.payload)
+                console.log('state 2', current(state.songs));
             }
             else {
                 console.log('Song was previously added!')
@@ -40,7 +42,7 @@ const librarySlice = createSlice({
             // return state.tasks.filter(task => task.id !== action.payload);
             return {
                 ...state,
-                songs: state.songs.filter(song => song.idTrack !== action.payload)
+                songs: state.songs.filter(song => song.idTrack !== action.payload)                
             }
             // state.songs = state.songs.filter(song => song.idTrack !== action.payload);
         }
